@@ -15,6 +15,15 @@ st.write("걷기 · 뛰기 · 정지 · 계단오르기 상태 분류")
 uploaded = st.file_uploader("CSV 파일 업로드", type="csv")
 if uploaded:
     df = pd.read_csv(uploaded)
+
+    # ✅ CSV 업로드 후 컬럼명 자동 변환
+    df.rename(columns={
+        'Linear Acceleration x (m/s^2)': 'acc_x',
+        'Linear Acceleration y (m/s^2)': 'acc_y',
+        'Linear Acceleration z (m/s^2)': 'acc_z',
+        'Absolute acceleration (m/s^2)': 'acc_abs'
+    }, inplace=True)
+
     st.write("### 입력 데이터 미리보기", df.head(5))
 
     def extract_features(df, window_size=50, step_size=25):
